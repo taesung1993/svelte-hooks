@@ -1,36 +1,29 @@
 import type {RequestHandler} from '@sveltejs/kit';
 import * as cookie from 'cookie';
-import {v4 as uuidv4} from 'uuid';
+import { createSession, getUserByEmail, registerUser } from '../_db';
 
 export const post: RequestHandler = async (event) => {
     const body = await event.request.json();
-    const {username, password} = body;
-    console.log(event.request.headers);
+    const {email, password} = body;
+    const user = await getUserByEmail(email);
 
-    if(
-        username !== 'mason@gollala.com' ||
-        password !== '123123a@'
-    ) {
+    if(!user || user.password !== password) {
         return {
             status: 401,
             body: {
-                message: 'fail to login',
-                user: {
-                    username,
-                    password
-                }
+                message: 'Incorrect email or password'
             }
-        };
+        }
     }
 
-    const sessionId = uuidv4();
-    
+    const {id} = await createSession(email);
     const headers = {
-        'Set-Cookie': [cookie.serialize('session_id', sessionId, {
+        'Set-Cookie': [cookie.serialize('session_id', id, {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'strict',
             maxAge: 60 * 60 * 24 * 7,
-            path: '/'
+            path: '/',
+            secure: process.env.NODE_ENV === 'production'
         })]
     }
 
@@ -38,7 +31,7 @@ export const post: RequestHandler = async (event) => {
         status: 200,
         headers,
         body: {
-            message: 'successfully login'
+            message: 'Successfully signed in'
         }
     }
 }
