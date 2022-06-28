@@ -1,31 +1,31 @@
 <script lang=ts>
-     import SignUpForm from '$lib/components/forms/sign-up.svelte';
+import SignUpForm from '$lib/components/forms/sign-up.svelte';
 import type { IUser } from '$lib/models/interfaces/user';
 
-     async function handleSignup(event: CustomEvent<IUser>) {
-          const body = event.detail;
-          try {
-               const response = await fetch('/api/sign-up', {
-                    method: 'POST',
-                    body: JSON.stringify(body)
-               });
+async function handleSignup(event: CustomEvent<IUser>) {
+     const body = event.detail;
+     try {
+          const response = await fetch('/api/sign-up', {
+               method: 'POST',
+               body: JSON.stringify(body)
+          });
 
-               const data = await response.json();
+          const data = await response.json();
 
-               if(response.ok) {
-                    console.log('successfully');
-               } else {
-                    const {errors: message} = data;
-                    const statusCode = response.status;
-                    throw {
-                         status: statusCode,
-                         message
-                    };         
-               }
-          } catch(error: any) {
-               console.log(error.message);
+          if(response.ok) {
+               console.log('successfully');
+          } else {
+               const {errors: message} = data;
+               const statusCode = response.status;
+               throw {
+                    status: statusCode,
+                    message
+               };         
           }
+     } catch(error: any) {
+          console.log(error.message);
      }
+}
 </script>
 
 <section class="container">
