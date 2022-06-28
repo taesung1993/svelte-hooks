@@ -12,14 +12,13 @@ export const handle: Handle = async ({event, resolve}) => {
         locals.user.authenticated = true;
     }
 
-    const response = await resolve(event); // create responst
-
+    const response = await resolve(event);
     return response;
 }; 
 
 export const getSession: GetSession = (request) => {
     const user = (request.locals as any).user;
-
+    
     if(!user.session_id) {
         return {};
     }
