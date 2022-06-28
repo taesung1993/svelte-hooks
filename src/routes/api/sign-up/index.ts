@@ -11,7 +11,7 @@ export const post: RequestHandler = async (event) => {
         return {
             status: 409,
             body: {
-                message: 'User already registered'
+                errors: 'User already registered'
             }
         }
     }

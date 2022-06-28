@@ -1,29 +1,41 @@
 <script lang=ts>
-     import {form , field} from 'svelte-forms';
-     import {required, matchField, email} from 'svelte-forms/validators';
-     const errors: any = {
-        required: '필수 정보입니다.',
-        'not_an_email': '이메일 형식으로 입력해주세요.',
-        'match_field': '비밀번호가 일치하지 않습니다.'
-     }
+import type { IUser } from '$lib/models/interfaces/user';
 
-     const id = field('email', '', [required(), email()], {valid: false});
-     const password = field('password', '', [required()], {valid: false});
-     const passwordConfirmation = field('passwordConfirmation', '', [ required(), matchField(password)], {valid: false});
-     const signUpForm = form(id, password, passwordConfirmation);
+import { createEventDispatcher } from 'svelte';
+import {form , field} from 'svelte-forms';
+import {required, matchField, email} from 'svelte-forms/validators';
+const errors: any = {
+required: '필수 정보입니다.',
+'not_an_email': '이메일 형식으로 입력해주세요.',
+'match_field': '비밀번호가 일치하지 않습니다.'
+}
+const dispatch = createEventDispatcher<{register: IUser}>();
 
-     function handleSubmit() {
-        console.log('handle Submit');
-     }
+const id = field('id', '', [required(), email()], {valid: false});
+const password = field('password', '', [required()], {valid: false});
+const passwordConfirmation = field('passwordConfirmation', '', [ required(), matchField(password)], {valid: false});
+const signUpForm = form(id, password, passwordConfirmation);
 
-     function handlePassword(event: Event) {
-        const target = event.currentTarget as HTMLInputElement;
-        const value = target.value;
+function handleSubmit() {
+    const {id, password} = $signUpForm.summary as {id: string; password: string; passwordConfirmation: string};
+    const body: any = {
+        email: id,
+        password
+    };
 
-        if(value === '') {
-            passwordConfirmation.reset();  
-        }
-     }
+    console.log(body);
+    
+    dispatch('register', body);
+}
+
+function handlePassword(event: Event) {
+    const target = event.currentTarget as HTMLInputElement;
+    const value = target.value;
+
+    if(value === '') {
+        passwordConfirmation.reset();  
+    }
+}
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
