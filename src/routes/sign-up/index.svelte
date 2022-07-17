@@ -1,31 +1,5 @@
 <script lang=ts>
-import SignUpForm from '$lib/components/forms/sign-up.svelte';
-import type { IUser } from '$lib/models/interfaces/user';
-
-async function handleSignup(event: CustomEvent<IUser>) {
-     const body = event.detail;
-     try {
-          const response = await fetch('/api/sign-up', {
-               method: 'POST',
-               body: JSON.stringify(body)
-          });
-
-          const data = await response.json();
-
-          if(response.ok) {
-               console.log('successfully');
-          } else {
-               const {errors: message} = data;
-               const statusCode = response.status;
-               throw {
-                    status: statusCode,
-                    message
-               };         
-          }
-     } catch(error: any) {
-          console.log(error.message);
-     }
-}
+import SignUpForm from '$lib/components/forms/SignUp.svelte';
 </script>
 
 <section class="container">
@@ -33,7 +7,7 @@ async function handleSignup(event: CustomEvent<IUser>) {
           <h1>회원가입</h1>
      </header>
      <main>
-          <SignUpForm on:register={handleSignup}/>
+          <SignUpForm/>
      </main>
 </section>
 
@@ -43,7 +17,7 @@ async function handleSignup(event: CustomEvent<IUser>) {
           max-width: 1160px;
           min-height: 100vh;
           margin: 0 auto;
-          padding-top: 200px;
+          padding-top: 10rem;
 
           header, main {
                @extend %child_layout;
