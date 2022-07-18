@@ -8,16 +8,16 @@
     not_an_email: "이메일 형식으로 입력해주세요.",
     match_field: "비밀번호가 일치하지 않습니다.",
   };
-  const id = field("id", "mason@gollala.com", [required(), email()], {
+  const id = field("id", "", [required(), email()], {
     valid: false,
   });
 
-  const password = field("password", "123123a@", [required()], {
+  const password = field("password", "", [required()], {
     valid: false,
   });
   const passwordConfirmation = field(
     "passwordConfirmation",
-    "123123a@",
+    "",
     [required(), matchField(password)],
     { valid: false }
   );
@@ -47,7 +47,7 @@
       const data = await response.json();
 
       if (response.ok) {
-        console.log("successfully");
+        window.location.href = '/';
       } else {
         const { errors: message } = data;
         const statusCode = response.status;
