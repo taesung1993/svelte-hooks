@@ -6,9 +6,14 @@
     <header>
          <h1>회원가입</h1>
     </header>
+
     <main>
          <SignUpForm/>
     </main>
+
+    <footer>
+          <a class="sign-in-btn" href="/sign-in">로그인</a>
+    </footer>
 </section>
 
 <style lang=scss>
@@ -19,7 +24,7 @@
           margin: 0 auto;
           padding-top: 10rem;
 
-          header, main {
+          header, main, footer {
                @extend %child_layout;
           }
 
@@ -29,6 +34,26 @@
                     text-align: center;
                     font-size: 2.9rem;
                     line-height: 4.3rem;
+               }
+          }
+
+          footer {
+               padding-top: 7.2rem;
+
+               a.sign-in-btn {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: 5.2rem;
+                    border-radius: 0.4rem;
+                    background-color: #323232;
+
+                    color: #fff;
+                    font-size: 1.6rem;
+                    line-height: 2.3rem;
+                    text-decoration: none;
+                    cursor: pointer;
                }
           }
 
