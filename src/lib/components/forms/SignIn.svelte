@@ -2,6 +2,11 @@
      import {form, field} from 'svelte-forms';
      import {required, matchField, email} from 'svelte-forms/validators';
 
+     const errors: any = {
+        required: "필수 정보입니다.",
+        not_an_email: "이메일 형식으로 입력해주세요."
+     }
+
      const id = field('id', '', [required(), email()], {
         valid: false
      });
@@ -10,8 +15,11 @@
         valid: false
      });
 
+     const signInForm = form(id, password);
+
      function handleSubmit() {
         console.log('submit');
+        console.log($signInForm);
      }
 </script>
 
@@ -22,8 +30,13 @@
         <input type="text" 
                id="email"
                bind:value={$id.value}
+               on:blur={id.validate}
                />
-        <div>{$id.value}</div> 
+        {#if $id.errors.length}
+            <p class="error-message">
+                {errors[$id.errors[0]]}
+            </p>
+        {/if}
     </div>
     
     <div class="form-control">
@@ -31,11 +44,17 @@
         <input type="password"
                id="password"
                bind:value={$password.value}
+               on:blur={password.validate}
                />
+        {#if $password.errors.length}
+            <p class="error-message">
+                {errors[$password.errors[0]]}
+            </p>
+        {/if}
     </div>
 
     <div class="form-control">
-        <button type="submit">로그인</button>
+        <button type="submit" disabled={!$signInForm.valid}>로그인</button>
     </div>
 </form>
 
