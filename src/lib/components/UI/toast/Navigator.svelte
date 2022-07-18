@@ -19,16 +19,9 @@
 
 
 <section use:portal class="navigators center">
-  <Toast type='success'/>
-  <Toast type='info'/>
-  <Toast type='warning'/>
-  <Toast type='error'/>
-  <h1>Component</h1>
-  <!-- {#each $toasts as toast}
-    <div>
-      {toast.message}
-    </div> 
-  {/each} -->
+  {#each $toasts as {id, message, type} (id)}
+    <Toast id={id} type={type} message={message}/>
+  {/each}
 </section>
 
 <style lang=scss>

@@ -1,12 +1,23 @@
 <script lang=ts>
   import Fa from 'svelte-fa';
+  import {fly} from 'svelte/transition';
   import {faCircleCheck, faCircleExclamation, faTriangleExclamation, faXmarkCircle, faXmark} from '@fortawesome/free-solid-svg-icons';
+  import {toasts} from '$lib/store/toast';
 
+   export let id: string;
    export let type: string = 'success';
    export let message: string = 'test message';
+
+   function closeToast() {
+      toasts.close(id);
+   }
 </script>
 
-<section class='toast {type}'> 
+<section class='toast {type}' 
+         id={id}
+         in:fly={{y: 200, duration: 1000}}
+         out:fly={{y: 50, duration: 500}}
+> 
   <div class='icon-wrapper {type}'>
     {#if type === 'success'}
       <Fa icon={faCircleCheck} 
@@ -39,7 +50,7 @@
   </div>
 
   <div class='close-wrapper'>
-    <button>
+    <button on:click={closeToast}>
       <Fa icon={faXmark} 
         scale={1} 
         color='#1c1c1c'
