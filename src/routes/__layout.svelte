@@ -26,10 +26,7 @@
 
 <script lang=ts>
     import ToastNavigator from '$lib/components/UI/toast/Navigator.svelte';
-    import {navigating} from '$app/stores';
 </script>
-
-{JSON.stringify($navigating)}
 
 <slot></slot>
 
