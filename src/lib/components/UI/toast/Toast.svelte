@@ -15,7 +15,7 @@
 
 <section class='toast {type}' 
          id={id}
-         in:fly={{y: 200, duration: 1000}}
+         in:fly={{y: 200, duration: 500}}
          out:fly={{y: 50, duration: 500}}
 > 
   <div class='icon-wrapper {type}'>
@@ -71,6 +71,7 @@
     border: 0.1rem solid transparent;
     border-radius: 1rem;
     padding: 2.8rem 2rem;
+    margin-top: 2rem;
 
     &.success {
       border-color: #3FBE61;

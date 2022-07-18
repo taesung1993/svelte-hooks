@@ -1,6 +1,7 @@
 <script lang=ts>
   import Toast from './Toast.svelte';
   import {toasts} from '$lib/store/toast';
+  import {slide} from 'svelte/transition';
 
   function portal(node: HTMLElement) {
     const container = document.createElement('section');
@@ -20,7 +21,9 @@
 
 <section use:portal class="navigators center">
   {#each $toasts as {id, message, type} (id)}
-    <Toast id={id} type={type} message={message}/>
+    <section transition:slide|local={{duration: 200}}>
+      <Toast id={id} type={type} message={message}/>
+    </section>
   {/each}
 </section>
 
@@ -30,7 +33,6 @@
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
 
     &.center {
       top: 0;
