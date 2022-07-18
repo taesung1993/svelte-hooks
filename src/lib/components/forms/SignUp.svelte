@@ -8,6 +8,7 @@
     not_an_email: "이메일 형식으로 입력해주세요.",
     match_field: "비밀번호가 일치하지 않습니다.",
   };
+
   const id = field("id", "", [required(), email()], {
     valid: false,
   });
@@ -15,12 +16,14 @@
   const password = field("password", "", [required()], {
     valid: false,
   });
+
   const passwordConfirmation = field(
     "passwordConfirmation",
     "",
     [required(), matchField(password)],
     { valid: false }
   );
+
   const signUpForm = form(id, password, passwordConfirmation);
 
   function handleSubmit() {
@@ -121,7 +124,7 @@
   </div>
 
   <div class="form-control">
-    <button type="submit" disabled={!$signUpForm.valid}>Send form</button>
+    <button type="submit" disabled={!$signUpForm.valid}>회원가입</button>
   </div>
 </form>
 
