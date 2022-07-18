@@ -57,8 +57,7 @@
         };
       }
     } catch (error: any) {
-			toasts.open('hello', 'success');
-      console.log(error.message);
+			toasts.open(error.message, 'error');
     }
   }
 
