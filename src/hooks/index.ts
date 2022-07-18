@@ -22,7 +22,7 @@ export const getSession: GetSession = (request) => {
     if(!user.session_id) {
         return {};
     }
-
+    
     return {
         user
     }
