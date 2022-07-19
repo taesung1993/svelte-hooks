@@ -11,7 +11,7 @@ export const post: RequestHandler = async (event) => {
         return {
             status: 409,
             body: {
-                errors: 'User already registered'
+                errors: '이미 등록된 유저입니다.'
             }
         }
     }

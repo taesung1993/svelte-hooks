@@ -11,7 +11,7 @@ export const post: RequestHandler = async (event) => {
         return {
             status: 401,
             body: {
-                errors: 'Incorrect email or password'
+                errors: '올바르지 않은 이메일 또는 비밀번호입니다.'
             }
         }
     }
