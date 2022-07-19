@@ -1,6 +1,6 @@
 import type {RequestHandler} from '@sveltejs/kit';
 import * as cookie from 'cookie';
-import { createSession, getUserByEmail, registerUser } from '../_db';
+import { createSession, getUserByEmail } from '../_db';
 
 export const post: RequestHandler = async (event) => {
     const body = await event.request.json();
