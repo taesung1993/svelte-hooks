@@ -1,4 +1,5 @@
 <script lang=ts>
+     import { toasts } from "$lib/store/toast";
      import {form, field} from 'svelte-forms';
      import {required, matchField, email} from 'svelte-forms/validators';
 
@@ -18,8 +19,40 @@
      const signInForm = form(id, password);
 
      function handleSubmit() {
-        console.log('submit');
-        console.log($signInForm);
+        const {id, password} = $signInForm.summary as {
+            id: string;
+            password: string;
+        };
+
+        const body: any = {
+            email: id,
+            password 
+        };
+
+        handleSignIn(body);
+     }
+
+     async function handleSignIn(body: any) {
+        try {
+            const response = await fetch('/api/sign-in', {
+                method: "POST",
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+
+            } else {
+                const {errors: message} = data;
+                const statusCode = response.status;
+                throw {
+                    status: statusCode,
+                    message
+                }
+            }
+        } catch (error: any) {
+            toasts.open(error.message, 'error');
+        }
      }
 </script>
 

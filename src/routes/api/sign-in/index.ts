@@ -11,7 +11,7 @@ export const post: RequestHandler = async (event) => {
         return {
             status: 401,
             body: {
-                message: 'Incorrect email or password'
+                errors: 'Incorrect email or password'
             }
         }
     }
