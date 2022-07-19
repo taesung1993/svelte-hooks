@@ -3,10 +3,27 @@
   import {fly} from 'svelte/transition';
   import {faCircleCheck, faCircleExclamation, faTriangleExclamation, faXmarkCircle, faXmark} from '@fortawesome/free-solid-svg-icons';
   import {toasts} from '$lib/store/toast';
+  import {onMount, onDestroy} from 'svelte';
 
    export let id: string;
    export let type: string = 'success';
    export let message: string = 'test message';
+
+   let timer: any = null;
+
+
+  onMount(() => {
+    autoCloseToast();
+  });
+
+  onDestroy(() => {
+    clearTimeout(timer);
+  });
+
+  function autoCloseToast() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {closeToast()}, 2500);
+  } 
 
    function closeToast() {
       toasts.close(id);
