@@ -4,6 +4,9 @@
         const {session, url: {pathname}}: any = event;
         const isAuthenticated = session.user && session.user.authenticated;
 
+        console.log('load');
+        console.log(event);
+
         if(isAuthenticated && (pathname === '/sign-in' || pathname === '/sign-up')) {
             return {
                 status: 302,
@@ -23,7 +26,13 @@
 </script>
 
 <script lang=ts>
+    import { beforeNavigate } from '$app/navigation';
     import ToastNavigator from '$lib/components/UI/toast/Navigator.svelte';
+
+    beforeNavigate((event) => {
+        const { to, from } = event;
+        window.location.href = to?.pathname || '/';
+    });
 </script>
 
 <slot></slot>
