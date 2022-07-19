@@ -146,6 +146,7 @@
     }
 
     .close-wrapper {
+      margin-left: 1.6rem;
       button {
         padding: 0;
         margin: 0;
