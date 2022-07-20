@@ -4,9 +4,6 @@
         const {session, url: {pathname}}: any = event;
         const isAuthenticated = session.user && session.user.authenticated;
 
-        console.log('load');
-        console.log(event);
-
         if(isAuthenticated && (pathname === '/sign-in' || pathname === '/sign-up')) {
             return {
                 status: 302,
