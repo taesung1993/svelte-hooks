@@ -3,7 +3,8 @@
      import {form, field} from 'svelte-forms';
      import {required, matchField, email} from 'svelte-forms/validators';
      import {goto} from '$app/navigation';
-
+     import {auth, signInWithGooglePopup} from '$lib/util/config/firebase';
+    
      const errors: any = {
         required: "필수 정보입니다.",
         not_an_email: "이메일 형식으로 입력해주세요."
@@ -18,6 +19,15 @@
      });
 
      const signInForm = form(id, password);
+
+     async function login() {
+        try {
+            const response = await signInWithGooglePopup();
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+     }
 
      function handleSubmit() {
         const {id, password} = $signInForm.summary as {
@@ -89,6 +99,10 @@
 
     <div class="form-control">
         <button type="submit" disabled={!$signInForm.valid}>로그인</button>
+    </div>
+
+    <div>
+        <button type="button" on:click={login}>구글 로그인</button>
     </div>
 </form>
 

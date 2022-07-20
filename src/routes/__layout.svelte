@@ -24,6 +24,7 @@
 
 <script lang=ts>
     import { beforeNavigate } from '$app/navigation';
+    import Header from '$lib/components/UI/toast/header/Header.svelte';
     import ToastNavigator from '$lib/components/UI/toast/Navigator.svelte';
 
     beforeNavigate((event) => {
@@ -31,6 +32,9 @@
         window.location.href = to?.pathname || '/';
     });
 </script>
+
+
+<Header/>
 
 <slot></slot>
 
