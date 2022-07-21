@@ -3,7 +3,6 @@
      import {form, field} from 'svelte-forms';
      import {required, matchField, email} from 'svelte-forms/validators';
      import {goto} from '$app/navigation';
-     import {auth, signInWithGooglePopup} from '$lib/util/config/firebase';
     
      const errors: any = {
         required: "필수 정보입니다.",
@@ -22,8 +21,6 @@
 
      async function login() {
         try {
-            const response = await signInWithGooglePopup();
-            console.log(response);
         } catch (error) {
             console.log(error);
         }
