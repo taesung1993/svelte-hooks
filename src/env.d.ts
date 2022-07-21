@@ -1,12 +1,5 @@
 interface ImportMetaEnv {
-  readonly VITE_FIREBASE_CONFIG: {
-    apiKey: string;
-    authDomain: string;
-    projectId: string;
-    storageBucket: string;
-    messagingSenderId: string;
-    appId: string;
-  }
+  readonly VITE_FIREBASE_CONFIG: string;
   // more env variables...
 }
 

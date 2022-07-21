@@ -6,3 +6,4 @@ node_modules
 .env
 .env.*
 !.env.example
+firebase_service_account.json
