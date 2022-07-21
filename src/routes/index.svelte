@@ -13,9 +13,6 @@
     export let session: any;
 </script>
 
-{JSON.stringify(session)}
-
-
 <style>
 
 </style>
