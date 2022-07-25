@@ -3,6 +3,7 @@
   import { form, field } from "svelte-forms";
   import { required, matchField, email } from "svelte-forms/validators";
   import { goto } from "$app/navigation";
+  import { signUpWithEmailAndPassword, initialFirebase } from '$lib/client/firebase';
 
   const errors: any = {
     required: "필수 정보입니다.",
@@ -43,25 +44,14 @@
 
   async function handleSignup(body: any) {
     try {
-      const response = await fetch("/api/sign-up", {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      const user = await signUpWithEmailAndPassword(body);
+      if (user) {
+        toasts.open('회원가입이 완료되었습니다.');
         goto('/');
-      } else {
-        const { errors: message } = data;
-        const statusCode = response.status;
-        throw {
-          status: statusCode,
-          message,
-        };
       }
     } catch (error: any) {
-			toasts.open(error.message, 'error');
+      console.log('에러');
+      console.log(error.message);
     }
   }
 

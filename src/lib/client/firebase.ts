@@ -1,5 +1,5 @@
 import {initializeApp, getApps, getApp} from 'firebase/app';
-import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import {getAuth, onAuthStateChanged, createUserWithEmailAndPassword} from 'firebase/auth';
 import { session } from '$app/stores';
 
 import type {FirebaseApp} from 'firebase/app';
@@ -26,7 +26,6 @@ function listenAuthStateChange() {
 async function onAuthStateChangeHandler(user: User | null) {
   if (user) {
     const token = await user.getIdToken();
-    await setToken(token);
 
     session.update((oldSession: any) => {
       oldSession.user = {
@@ -37,7 +36,6 @@ async function onAuthStateChangeHandler(user: User | null) {
       return oldSession;
     });
   } else {
-    await setToken('');
     session.update((oldSession: any) => {
       oldSession.user = null;
       return oldSession;
@@ -55,4 +53,15 @@ async function setToken(token: string) {
   };
 
   await fetch('/api/token', options);
+}
+
+export async function signUpWithEmailAndPassword(body: any) {
+  const auth = getAuth(app!);
+  return new Promise((resolve, reject) => {
+    createUserWithEmailAndPassword(auth, body.email, body.password).then((user) => {
+      if(user) {
+        resolve(user);
+      }
+    });
+  });
 }
