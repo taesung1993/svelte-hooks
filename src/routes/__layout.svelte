@@ -26,13 +26,4 @@
 <ToastNavigator/>
 
 <style lang=scss>
-    :global(*) {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    :global(html) {
-        font-size: 10px;
-    }
 </style>
