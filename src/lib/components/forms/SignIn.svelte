@@ -90,10 +90,6 @@
     <div class="form-control">
         <button type="submit" disabled={!$signInForm.valid}>로그인</button>
     </div>
-
-    <div>
-        <button type="button" on:click={login}>구글 로그인</button>
-    </div>
 </form>
 
 <style lang=scss>
