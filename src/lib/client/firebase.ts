@@ -10,8 +10,15 @@ let unsubOnAuthStateChangeHandler: () => void;
 
 export function initialFirebase() {
   if (!getApps().length) {
-    const config = import.meta.env.VITE_FIREBASE_CONFIG;
-    app = initializeApp(JSON.parse(config));
+    const config = {
+      apiKey: "AIzaSyB65WkVXT2CPTMvYH6LLcQnc4yANLSbsqI",
+      authDomain: "sveltekit-auth-68a48.firebaseapp.com",
+      projectId: "sveltekit-auth-68a48",
+      storageBucket: "sveltekit-auth-68a48.appspot.com",
+      messagingSenderId: "454003295869",
+      appId: "1:454003295869:web:c9e6a0bab5f18421d51314"
+    };
+    app = initializeApp(config);
   } else {
     app = getApp();
   }
@@ -25,21 +32,10 @@ function listenAuthStateChange() {
 
 async function onAuthStateChangeHandler(user: User | null) {
   if (user) {
-    const token = await user.getIdToken();
-
-    session.update((oldSession: any) => {
-      oldSession.user = {
-        name: user.displayName,
-        email: user.email,
-        uid: user.uid
-      }
-      return oldSession;
-    });
+    const token = await user.getIdToken(true);
+    await setToken(token);
   } else {
-    session.update((oldSession: any) => {
-      oldSession.user = null;
-      return oldSession;
-    });
+    await setToken('');
   }
 }
 
