@@ -18,9 +18,11 @@
 </script>
 
 
-{JSON.stringify($session)}
 <Header/>
-<slot></slot>
+<main>
+    <slot></slot>
+</main>
+
 <ToastNavigator/>
 
 <style lang=scss>
