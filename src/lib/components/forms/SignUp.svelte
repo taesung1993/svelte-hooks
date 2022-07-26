@@ -3,7 +3,7 @@
   import { form, field } from "svelte-forms";
   import { required, matchField, email } from "svelte-forms/validators";
   import { goto } from "$app/navigation";
-  import { signUpWithEmailAndPassword, initialFirebase } from '$lib/client/firebase';
+  import { signUpWithEmailAndPassword, handleFirebaseError } from '$lib/client/firebase';
 
   const errors: any = {
     required: "필수 정보입니다.",
@@ -50,8 +50,9 @@
         goto('/');
       }
     } catch (error: any) {
-      console.log('에러');
-      console.log(error.message);
+      const message = handleFirebaseError(error.code);
+      toasts.open(message, 'error');
+      console.log(error.code);
     }
   }
 
